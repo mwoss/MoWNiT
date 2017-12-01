@@ -29,9 +29,9 @@ main (void)
     const gsl_rng_type *T;
     gsl_rng *r;
     gsl_monte_function G = { &g, 2, 0 };
-    FILE *plain,*monte,*vegas;
+    FILE *plain,*miser,*vegas;
     plain = fopen("plain.txt", "w");
-    monte = fopen("monte.txt", "w");
+    miser = fopen("monte.txt", "w");
     vegas = fopen("vegas.txt", "w");
 
 
@@ -51,8 +51,8 @@ main (void)
             gsl_monte_miser_state *s = gsl_monte_miser_alloc(2);
             gsl_monte_miser_integrate(&G, xl, xu, 2, calls, r, s, &res, &err);
             gsl_monte_miser_free(s);
-            fprintf(monte, "%d\t\t", calls);
-            fprintf(monte, "%f \n", err);
+            fprintf(miser, "%d\t\t", calls);
+            fprintf(miser, "%f \n", err);
         }
         { 	gsl_monte_vegas_state *s = gsl_monte_vegas_alloc(2);
 			gsl_monte_vegas_integrate(&G, xl, xu, 2, calls , r, s,&res, &err);
